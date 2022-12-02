@@ -9,12 +9,8 @@ namespace HashTableAndBST_Batch222
     internal class Program
     {
         static void Main(string[] args)
-        { 
-         string paragraph = "To be or not to be";//paragraph declare
-         CountNumbOfOccurence(paragraph);//paragraph passed as input parameter to method
-        }
-        public static void CountNumbOfOccurence(string paragraph)
         {
+            string paragraph = "“Paranoids are not paranoid because they are paranoid but because they keep putting themselves deliberately into paranoid avoidable situations";
             MyMapNode<string, int> hashTabe = new MyMapNode<string, int>(6);
             string[] words = paragraph.Split(' ');
             foreach (string word in words)

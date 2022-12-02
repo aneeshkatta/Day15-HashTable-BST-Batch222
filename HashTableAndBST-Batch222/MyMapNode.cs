@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace HashTableAndBST_Batch222
-{
+ {
     class MyMapNode<K, V>
     {
         public struct KeyValue<k, v>
@@ -15,9 +15,11 @@ namespace HashTableAndBST_Batch222
         }
         private readonly int size;
         private readonly LinkedList<KeyValue<K, V>>[] items;
+
         public MyMapNode(int size)
         {
-            this.size = size;//arr=new int[size];
+            this.size = size;
+            //arr=new int[size];
             this.items = new LinkedList<KeyValue<K, V>>[size];
         }
         protected int GetArrayPosition(K key)
@@ -34,9 +36,9 @@ namespace HashTableAndBST_Batch222
                 if (item.Key.Equals(key))
                     return item.Value;
             }
+
             return default(V);
         }
-
         public void Add(K key, V value)
         {
             var linkedList = GetArrayPositionAndLinkedList(key);
@@ -91,7 +93,7 @@ namespace HashTableAndBST_Batch222
             if (itemFound)
             {
                 linkedList.Remove(foundItem);
-                Console.WriteLine("Removed successfully with key " + foundItem.Key);
+                //Console.WriteLine("Removed successfully with key " + foundItem.Key);
             }
         }
         protected LinkedList<KeyValue<K, V>> GetLinkedList(int position)
@@ -104,7 +106,6 @@ namespace HashTableAndBST_Batch222
             }
             return linkedList;
         }
-
         public void Display()
         {
             foreach (var linkedList in items)
