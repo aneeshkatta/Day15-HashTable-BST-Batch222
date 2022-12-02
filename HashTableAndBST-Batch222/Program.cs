@@ -8,20 +8,13 @@ namespace HashTableAndBST_Batch222
 {
     internal class Program
     {
-        static void Main(string[] args)
+        public static void Main()
         {
-            string paragraph = "“Paranoids are not paranoid because they are paranoid but because they keep putting themselves deliberately into paranoid avoidable situations";
-            MyMapNode<string, int> hashTabe = new MyMapNode<string, int>(6);
-            string[] words = paragraph.Split(' ');
-            foreach (string word in words)
-            {
-                if (hashTabe.Exists(word.ToLower()))
-                    hashTabe.Add(word.ToLower(), hashTabe.Get(word.ToLower()) + 1);
-                else
-                    hashTabe.Add(word.ToLower(), 1); //to,1 
-            }
-            Console.WriteLine("Displaying after add operation");
-            hashTabe.Display();
+            BinarySearchTree<int> binarySearch = new BinarySearchTree<int>(56);
+            binarySearch.Insert(30);
+            binarySearch.Insert(70);
+            binarySearch.GetSize();
+            binarySearch.Display();
         }
     }
 }

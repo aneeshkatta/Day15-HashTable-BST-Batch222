@@ -4,120 +4,66 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace HashTableAndBST_Batch222
  {
-    class MyMapNode<K, V>
+    class BinarySearchTree<T> where T : IComparable<T>
     {
-        public struct KeyValue<k, v>
+        //intialize 
+        public T NodeData { get; set; }
+        public BinarySearchTree<T> leftTree { get; set; }
+        public BinarySearchTree<T> rightTree { get; set; }
+        //constructor
+        public BinarySearchTree(T nodeData)
         {
-            public k Key { get; set; }
-            public v Value { get; set; }
+            this.NodeData = nodeData;
+            this.rightTree = null;
+            this.leftTree = null;
         }
-        private readonly int size;
-        private readonly LinkedList<KeyValue<K, V>>[] items;
-
-        public MyMapNode(int size)
+        //intialize variables
+        int leftCount; int rightCount;
+        //define insert method
+        public void Insert(T item)
         {
-            this.size = size;
-            //arr=new int[size];
-            this.items = new LinkedList<KeyValue<K, V>>[size];
-        }
-        protected int GetArrayPosition(K key)
-        {
-            int hash = key.GetHashCode(); //637362
-            int position = hash % size; // 0 to 4
-            return Math.Abs(position);
-        }
-        public V Get(K key)
-        {
-            var linkedList = GetArrayPositionAndLinkedList(key);
-            foreach (KeyValue<K, V> item in linkedList)
+            T currentNodeValue = this.NodeData;
+            if ((currentNodeValue.CompareTo(item)) > 0)
             {
-                if (item.Key.Equals(key))
-                    return item.Value;
-            }
-
-            return default(V);
-        }
-        public void Add(K key, V value)
-        {
-            var linkedList = GetArrayPositionAndLinkedList(key);
-            KeyValue<K, V> item = new KeyValue<K, V>()
-            { Key = key, Value = value };
-            if (linkedList.Count != 0)
-            {
-                foreach (KeyValue<K, V> item1 in linkedList)
+                if (this.leftTree == null)
                 {
-                    if (item1.Key.Equals(key))
-                    {
-                        Remove(key);
-                        break;
-                    }
+                    this.leftTree = new BinarySearchTree<T>(item);
                 }
+                else
+                    this.leftTree.Insert(item);
+                this.leftCount++;
             }
-            linkedList.AddLast(item); // to,2
-            // Console.WriteLine(item.Key + " " + item.Value);
-        }
-        public bool Exists(K key)
-        {
-            var linkedList = GetArrayPositionAndLinkedList(key);
-            foreach (KeyValue<K, V> item in linkedList)
+            else
             {
-                if (item.Key.Equals(key))
+                if (this.rightTree == null)
                 {
-                    return true;
+                    this.rightTree = new BinarySearchTree<T>(item);
                 }
+                else
+                    this.rightTree.Insert(item);
+                this.rightCount++;
             }
-            return false;
-        }
-        public LinkedList<KeyValue<K, V>> GetArrayPositionAndLinkedList(K key)
-        {
-            int position = GetArrayPosition(key); //index number of array
-            LinkedList<KeyValue<K, V>> linkedList = GetLinkedList(position);
-            return linkedList;
-        }
-        public void Remove(K key)
-        {
-            var linkedList = GetArrayPositionAndLinkedList(key);
-            bool itemFound = false;
-            KeyValue<K, V> foundItem = default(KeyValue<K, V>);
-            foreach (KeyValue<K, V> item in linkedList)
-            {
-                if (item.Key.Equals(key))
-                {
-                    itemFound = true;
-                    foundItem = item;
-                    //linkedList.Remove(item);
-                }
-            }
-            if (itemFound)
-            {
-                linkedList.Remove(foundItem);
-                //Console.WriteLine("Removed successfully with key " + foundItem.Key);
-            }
-        }
-        protected LinkedList<KeyValue<K, V>> GetLinkedList(int position)
-        {
-            LinkedList<KeyValue<K, V>> linkedList = items[position]; //0
-            if (linkedList == null)
-            {
-                linkedList = new LinkedList<KeyValue<K, V>>();
-                items[position] = linkedList;
-            }
-            return linkedList;
         }
         public void Display()
         {
-            foreach (var linkedList in items)
+            if (this.leftTree != null)
             {
-                if (linkedList != null)
-                    foreach (var element in linkedList)
-                    {
-                        string res = element.ToString();
-                        if (res != null)
-                            Console.WriteLine(element.Key + " " + element.Value);
-                    }
+
+                this.leftTree.Display();
             }
+            Console.WriteLine(this.NodeData);
+            if (this.rightTree != null)
+            {
+
+                this.rightTree.Display();
+            }
+        }
+        public void GetSize()
+        {
+            Console.WriteLine("Size" + " " + (1 + this.leftCount + this.rightCount));
         }
     }
 }
