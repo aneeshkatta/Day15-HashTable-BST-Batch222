@@ -9,15 +9,24 @@ namespace HashTableAndBST_Batch222
     internal class Program
     {
         static void Main(string[] args)
+        { 
+         string paragraph = "To be or not to be";//paragraph declare
+         CountNumbOfOccurence(paragraph);//paragraph passed as input parameter to method
+        }
+        public static void CountNumbOfOccurence(string paragraph)
         {
-            MyMapNode<int, string> hash = new MyMapNode<int, string>(10);
-            hash.Add(0, "To");
-            hash.Add(1, "be");
-            hash.Add(2, "or");
-            hash.Add(3, "not");
-            hash.Add(4, "To");
-            hash.Add(5, "be");
-            Console.WriteLine(hash.GetFrequencyOfWords("be"));
+            MyMapNode<string, int> hashTabe = new MyMapNode<string, int>(6);
+            string[] words = paragraph.Split(' ');
+            foreach (string word in words)
+            {
+                if (hashTabe.Exists(word.ToLower()))
+                    hashTabe.Add(word.ToLower(), hashTabe.Get(word.ToLower()) + 1);
+                else
+                    hashTabe.Add(word.ToLower(), 1); //to,1 
+            }
+            Console.WriteLine("Displaying after add operation");
+            hashTabe.Display();
         }
     }
 }
+
